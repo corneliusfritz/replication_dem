@@ -537,8 +537,8 @@ fix_for_table_new <- function(model_1, model_2, new_names = NULL){
   }
   new_res <- gsub(pattern = "-",replacement = "$-$",new_res)
 
-  ind <- new_names %in% c("Friendship Match", "Both Female", "Friendship Match",
-                          "Both Female")
+  ind <- new_names %in% c("Friendship Match", "Gender Match", "Friendship Match",
+                          "Gender Match")
   new_res[,3][ind] <- NA
   new_res[,6][ind] <- NA
   new_res[new_res == "NA"] <- NA
@@ -609,8 +609,8 @@ fix_for_table_alt <- function(model_1, model_2, new_names = NULL){
   }
   new_res <- gsub(pattern = "-",replacement = "$-$",new_res)
 
-  ind <- new_names %in% c("Friendship Match", "Both Female", "Friendship Match",
-                          "Both Female")
+  ind <- new_names %in% c("Friendship Match", "Gender Match", "Friendship Match",
+                          "Gender Match")
   new_res[,3][ind] <- NA
   new_res[,6][ind] <- NA
   new_res[new_res == "NA"] <- NA
@@ -678,8 +678,8 @@ fix_for_table_rem <- function(model_1, model_2, new_names = NULL){
   # browser()
   new_res <- gsub(pattern = "-",replacement = "$-$",new_res)
 
-  ind <- new_names %in% c("Friendship Match", "Both Female", "Friendship Match",
-                          "Both Female")
+  ind <- new_names %in% c("Friendship Match", "Gender Match", "Friendship Match",
+                          "Gender Match")
   new_res[,3][ind] <- NA
   new_res[,6][ind] <- NA
   new_res[new_res == "NA"] <- NA
@@ -689,8 +689,8 @@ fix_for_table_rem <- function(model_1, model_2, new_names = NULL){
 }
 
 new_names <- c("Current Common Partner","General Common Partner", "Number Interaction", "Friendship Match",
-               "Both Female", "Current Interaction", "Number Interaction", "Current Common Partner","General Common Partner",
-               "Friendship Match","Both Female")
+               "Gender Match", "Current Interaction", "Number Interaction", "Current Common Partner","General Common Partner",
+               "Friendship Match","Gender Match")
 
 res <- fix_for_table_new(model_1 = models_proximity, model_2 = models, new_names = new_names)
 
@@ -698,8 +698,8 @@ res_sensitivity_proximity <- fix_for_table_new(model_1 = models_proximity, model
 res_sensitivity_proximity <- res_sensitivity_proximity[,-c(3,6)]
 
 new_names_call <- c("Number Interaction", "General Common Partner", "Friendship Match",
-                    "Both Female", "Current Interaction", "Number Interaction", "General Common Partner",
-                    "Friendship Match","Both Female")
+                    "Gender Match", "Current Interaction", "Number Interaction", "General Common Partner",
+                    "Friendship Match","Gender Match")
 
 res_sensitivity_call <- fix_for_table_new(model_1 = models, model_2 = models_alt, new_names = new_names_call)
 # Cut the columns with the exponentiated coefficients for the sensitivity analyses, as they are not informative in this case
@@ -902,8 +902,8 @@ models_alt <- readRDS(file = "Application/Results/gof_results_denmark_no_endo.rd
 models_glm <- readRDS(file = "Application/Results/gof_results_denmark_no_pop.rds")
 
 new_names <- c( "Number Interaction", "General Common Partner","Friendship Match",
-               "Both Female", "Current Interaction", "Number Interaction","General Common Partner",
-               "Friendship Match","Both Female")
+               "Gender Match", "Current Interaction", "Number Interaction","General Common Partner",
+               "Friendship Match","Gender Match")
 
 res_1 <- fix_for_table_alt(model_1 = models, model_2 = models_alt, new_names = new_names)
 res_2 <- fix_for_table_alt(model_1 = models, model_2 = models_glm, new_names = new_names)
@@ -941,8 +941,8 @@ models_proximity_no_degree <- readRDS(file = "Application/Results/gof_results_de
 res <- summary(models_proximity)
 res_alt <- summary(models_proximity_no_endo)
 new_names <- c("Current Common Partner","General Common Partner", "Number Interaction", "Friendship Match",
-               "Both Female", "Current Interaction", "Number Interaction", "Current Common Partner","General Common Partner",
-               "Friendship Match","Both Female")
+               "Gender Match", "Current Interaction", "Number Interaction", "Current Common Partner","General Common Partner",
+               "Friendship Match","Gender Match")
 res_1 <- fix_for_table_alt(model_1 = models_proximity, model_2 = models_proximity_no_endo, new_names = new_names)
 
 res_2 <- fix_for_table_alt(model_1 = models_proximity, model_2 = models_proximity_no_degree, new_names = new_names)
@@ -1124,7 +1124,7 @@ sms_cut_all <- rbind(sms_cut, sms_cut_end)
 sms_cut_all <- sms_cut_all[order(sms_cut_all$timestamp),]
 
 models_sms <- readRDS("Application/Results/denmark_models_sms.rds")
-new_names <- c("Common Partner", "Number Interaction", "Friendship Match","Both Female")
+new_names <- c("Common Partner", "Number Interaction", "Friendship Match","Gender Match")
 # debugonce(fix_for_table_rem)
 res <- fix_for_table_rem(model_1 = models_sms, model_2 = models_sms,
                          new_names = rep(new_names,2))
