@@ -26,7 +26,6 @@ error_res <- get_error(res_simulation,  coef_0_1 = res_simulation[[1]]$coef_0_1,
                        popularity_1_0 = res_simulation[[1]]$popularity_1_0,
                        baseline_1_0_gt = res_simulation[[1]]$baseline_1_0_gt)
 
-res_simulation[[1]]$coef_0_1_core
 
 se_0_1 <- do.call("rbind",lapply(res_simulation, function(x) sqrt(diag(x$covariance_0_1))))
 se_1_0 <- do.call("rbind",lapply(res_simulation, function(x) sqrt(diag(x$covariance_1_0))))
@@ -105,8 +104,8 @@ table_res <- round(rbind(cbind(error_res$ave_0_1 - coef_0_1, error_res$error_rms
                    cbind(error_res$ave_1_0 - coef_1_0, error_res$error_rmse_core_1_0,error_res$cp_1_0)),3)
 
 colnames(table_res) <- c("Bias", "RMSE", "CP")
-rownames(table_res) <- c("s_{i,j,CCP}", "s_{i,j,\bm{x}}", "s_{i,j,\bm{y}}",
-                         "s_{i,j,NI}", "s_{i,j,\bm{x}}", "s_{i,j,\bm{y}}")
+rownames(table_res) <- c("s_{i,j,CCP}", "s_{i,j,\bm{x}}", "s_{i,j,\bm{w}}",
+                         "s_{i,j,NI}", "s_{i,j,\bm{x}}", "s_{i,j,\bm{w}}")
 # Info for table 1 in the simulation study
 latex_res <- cbind(cbind(rownames(table_res)[1:3], table_res[1:3,]),
       cbind(rownames(table_res)[4:6], table_res[4:6,]))
@@ -127,6 +126,7 @@ new_res[,4] <- paste0("$",new_res[,4],"$")
 rownames(new_res) <- paste0("$",rownames(new_res),"$")
 rownames(new_res) <- gsub(pattern = "\bm",replacement = "\\\\bm",rownames(new_res))
 new_res[,4] <- gsub(pattern = "\bm",replacement = "\\\\bm",new_res[,4])
+
 latex(object = new_res,n.cgroup = c(3,4),
       cgroup = c("Incidence ($\\alpha^{0\\rightarrow 1}$)",
                  "Duration ($\\alpha^{1\\rightarrow 0}$)"),
@@ -135,8 +135,7 @@ latex(object = new_res,n.cgroup = c(3,4),
       title = "",
       first.hline.double= F,
       rowlabel.just = c("l"),
-      caption = paste("Simulation Study 1:
-      For each effect, we note the AVE (AVerage Estimate), RMSE (Root-Mean-Squared Error), and CP (Coverage Probability)."),
+      caption = paste("For each effect, we report the Bias ($\\hat{\\bm{\\alpha}}-\\bm{\\alpha}^\\star$), RMSE (Root-Mean-Squared Error), and CP (Coverage Probability). The dependence of the sufficient statistics on the history $\\mathscr{H}_t$ is suppressed for notational clarity.."),
       cgroup.just="c")
 
 degree_0_1 = res_simulation[[1]]$popularity_0_1

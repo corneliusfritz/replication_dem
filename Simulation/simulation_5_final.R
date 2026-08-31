@@ -198,7 +198,7 @@ master_colors <- c(
 master_labels <- c(
   "cp_current_common_partner" = expression(s[i * "," * j * "," * CCP]),
   "cp_continuous_cov" = expression(s[i * "," * j * "," * bold(x)]),
-  "cp_categorical_cov" = expression(s[i * "," * j * "," * bold(y)]),
+  "cp_categorical_cov" = expression(s[i * "," * j * "," * bold(w)]),
   "cp_number_interaction" = expression(s[i * "," * j * "," * NI])
 )
 
